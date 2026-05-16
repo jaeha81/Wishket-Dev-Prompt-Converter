@@ -1,0 +1,16 @@
+{
+  "name": "wishket-client-automation-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"Phase 2 예정\" && exit 0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0"
+  }
+}

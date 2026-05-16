@@ -11,7 +11,8 @@
 | 프로젝트 스펙 | ✅ `위시켓전용개발오케스트레이터.md` 완성 (539줄) |
 | 개발 계획서 | ✅ `개발.MD` 완성 (17섹션, Phase 1~4 작업 지시서 포함) |
 | GitHub push | ✅ `ac2d0a8` — init 커밋 push 완료 |
-| Phase 1 구현 | ⏳ 미착수 — 사용자 착수 지시 대기 중 |
+| Phase 1 구현 | ✅ 완료 — 디렉토리 19개 + 타입 스키마 9개 + 환경설정 (pnpm typecheck 통과) |
+| Phase 2 구현 | ⏳ 미착수 — MVP 모듈 (intake/analysis) + llm-wiki 6문서 |
 
 ---
 
