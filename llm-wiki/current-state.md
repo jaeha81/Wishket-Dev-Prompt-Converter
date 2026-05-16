@@ -1,6 +1,6 @@
 # current-state — Wishket Client Automation Hub
 
-> 마지막 갱신: 2026-05-16
+> 마지막 갱신: 2026-05-16 (Phase 2 완료)
 
 ## Phase 1 — 완료 ✅
 
@@ -20,11 +20,30 @@
 - **설정 파일**: `package.json`, `tsconfig.json`, `.env.example`, `.gitignore`
 - **검증**: `pnpm typecheck` 오류 0개 통과
 
-### 아직 안 한 것 (Phase 2)
-- `src/intake/index.ts` — 의뢰서 텍스트 정규화 모듈
-- `src/analysis/index.ts` — 요구사항 추출 + 누락 탐지 모듈
-- `llm-wiki/` 6개 문서 콘텐츠 (현재는 빈 상태)
-- 프롬프트 템플릿, 테스트 코드, 샘플 데이터
+## Phase 2 — 완료 ✅
+
+### 만들어진 것
+- **`src/intake/index.ts`** — `parseInquiry(rawText)`: 위시켓 의뢰서 원문 → InquiryInput 정규화
+  - 정규식 기반 섹션 파서 (레이블 자동 인식)
+  - 목록 필드(기술 스택, 연락처 등) 자동 분리
+- **`src/analysis/index.ts`** — `analyzeInquiry(inquiry)`: InquiryInput → AnalysisResult
+  - 요구사항 추출 (기능/비기능/제약 자동 분류)
+  - 필수 필드 누락 탐지
+  - 모호 표현 7가지 패턴 탐지
+  - 신뢰도(0.0~1.0) 산출
+- **`llm-wiki/` 6개 문서**: project-overview, agent-registry, decision-log, validation-log, current-state, handoff-prompt
+- **검증**: `pnpm typecheck` 오류 0개 통과 [미검증 완료 — 실데이터 테스트 미실시]
+
+### 아직 안 한 것 (Phase 3)
+- `src/classification/index.ts` — 작업 유형·난이도 분류
+- `src/consultation/index.ts` — 사전 상담 메시지 초안 생성
+- `src/estimate/index.ts` — 견적 범위 산정
+- `src/risk/index.ts` — 리스크 평가
+- `src/messaging/index.ts` — 채널별 메시지 포맷팅
+- `src/approval/index.ts` — 사람 승인 게이트
+- `tests/` — intake + analysis 테스트 코드
+- `data/samples/` — 샘플 위시켓 의뢰서 2~3개
+- `prompts/` — LLM 프롬프트 템플릿
 
 ## 핵심 제약 (변경 불가)
 - Claude = 구현 / Codex = 검증 (역할 교차 금지)
