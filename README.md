@@ -24,6 +24,20 @@ corepack pnpm test
 
 현재 샘플 3개 기준 전체 MVP 파이프라인 테스트가 실행된다.
 
+## Manual E2E CLI
+
+```powershell
+corepack pnpm run:e2e -- data/samples/sample-03.txt --out data/outputs
+```
+
+승인과 검증 통과를 수동 표시할 때만 아래 옵션을 붙인다.
+
+```powershell
+corepack pnpm run:e2e -- data/samples/sample-03.txt --out data/outputs --approve --validation-pass
+```
+
+출력은 `data/outputs/`에 JSON과 Markdown으로 저장된다. 이 폴더는 Git에 올리지 않는 실행 산출물이다.
+
 ## 흐름
 
 ```text
