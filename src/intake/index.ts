@@ -7,6 +7,23 @@
 
 import type { InquiryInput } from '../types/index.js';
 
+const FIELD_LABEL_PATTERNS = [
+  '프로젝트\\s*제목', '제목', 'title',
+  '프로젝트\\s*설명', '설명', '내용', 'description',
+  '예산', '금액', 'budget',
+  '기간', '납기', '일정', '개발\\s*기간', 'duration', 'deadline',
+  '기술\\s*스택', '사용\\s*기술', '필요\\s*기술', 'skills', 'stack',
+  '개발\\s*범위', '작업\\s*범위', '범위', 'scope',
+  '산출물', '결과물', '납품\\s*물', 'deliverables',
+  '요구\\s*사항', '클라이언트\\s*요청', '고객\\s*요구', 'requirements',
+  '유지\\s*보수', '지원\\s*조건', 'support',
+  '일정\\s*조건', '마감\\s*조건', 'schedule',
+  '리스크', '위험', '주의\\s*사항', 'risks',
+  '첨부\\s*파일', '파일', 'attachments',
+  '연락\\s*채널', '연락처', '연락\\s*방법', 'contact',
+  '내부\\s*메모', '메모', 'memo',
+] as const;
+
 /** 줄바꿈·탭·연속 공백 정리 */
 function normalizeWhitespace(raw: string): string {
   return raw
@@ -22,12 +39,16 @@ function normalizeWhitespace(raw: string): string {
  * patterns: 레이블 후보 목록 (정규식 문자열, 대소문자 무시)
  */
 function extractField(text: string, patterns: string[]): string {
-  for (const pattern of patterns) {
-    const regex = new RegExp(`(?:^|\\n)[ \\t]*${pattern}[ \\t]*[:\\：][ \\t]*([^\\n]+)`, 'i');
-    const match = text.match(regex);
-    if (match?.[1]) return match[1].trim();
-  }
-  return '';
+  if (patterns.length === 0) return '';
+
+  const labelPattern = patterns.join('|');
+  const nextLabelPattern = FIELD_LABEL_PATTERNS.join('|');
+  const regex = new RegExp(
+    `(?:^|\\n)[ \\t]*(?:${labelPattern})[ \\t]*[:\\：][ \\t]*([\\s\\S]*?)(?=\\n[ \\t]*(?:${nextLabelPattern})[ \\t]*[:\\：]|$)`,
+    'i',
+  );
+  const match = text.match(regex);
+  return match?.[1]?.trim() ?? '';
 }
 
 /**

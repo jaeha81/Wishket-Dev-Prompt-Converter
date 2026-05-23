@@ -51,24 +51,30 @@ function extractRequirements(inquiry: InquiryInput): ExtractedRequirement[] {
   const results: ExtractedRequirement[] = [];
   let seq = 1;
   const id = () => `REQ-${String(seq++).padStart(3, '0')}`;
+  const add = (category: ExtractedRequirement['category'], text: string) => {
+    const normalized = text.trim();
+    if (normalized) results.push({ id: id(), category, text: normalized });
+  };
 
-  // description + client_requirements → 기능 요구사항
+  // project_title + description + client_requirements + deliverables → 기능 요구사항
+  if (inquiry.project_title.trim()) add('functional', `프로젝트 제목: ${inquiry.project_title}`);
   for (const text of [inquiry.description, inquiry.client_requirements]) {
     for (const sentence of splitSentences(text)) {
-      results.push({ id: id(), category: 'functional', text: sentence });
+      add('functional', sentence);
     }
   }
+  if (inquiry.deliverables.trim()) add('functional', `산출물: ${inquiry.deliverables}`);
 
-  // dev_scope → 제약 조건
-  if (inquiry.dev_scope.trim()) {
-    results.push({ id: id(), category: 'constraint', text: inquiry.dev_scope.trim() });
-  }
+  // scope + skills + budget + schedule + risks → 제약 조건
+  add('constraint', inquiry.dev_scope);
+  if (inquiry.required_skills.length > 0) add('constraint', `필요 기술: ${inquiry.required_skills.join(', ')}`);
+  if (inquiry.budget.trim()) add('constraint', `예산: ${inquiry.budget}`);
+  if (inquiry.expected_duration.trim()) add('constraint', `희망 일정: ${inquiry.expected_duration}`);
+  if (inquiry.risks.trim()) add('constraint', `리스크: ${inquiry.risks}`);
 
   // support_conditions, schedule_conditions → 비기능 요구사항
   for (const text of [inquiry.support_conditions, inquiry.schedule_conditions]) {
-    if (text.trim()) {
-      results.push({ id: id(), category: 'non_functional', text: text.trim() });
-    }
+    add('non_functional', text);
   }
 
   return results;

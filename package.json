@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"Phase 2 예정\" && exit 0"
+    "test": "tsc && node --test tests/*.test.mjs"
   },
   "packageManager": "pnpm@9.0.0",
   "devDependencies": {
