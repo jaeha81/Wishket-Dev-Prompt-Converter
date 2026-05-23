@@ -43,3 +43,19 @@ llm-wiki/current-state.md 읽고 Wishket 실제 의뢰서 수동 E2E + Codex 독
 - 비개발자 눈높이로 설명
 - 스택: Node.js + TypeScript + pnpm
 - intake + analysis 검증은 Codex에게 요청 (agent-registry.md 참조)
+
+---
+
+## 2026-05-23 최신 이어받기
+
+```powershell
+corepack pnpm run:e2e -- <문의파일> --out data/outputs
+```
+
+- Manual E2E CLI는 구현 완료.
+- `corepack pnpm typecheck` 통과.
+- `corepack pnpm test` 통과 (10 tests).
+- 샘플 실행 완료: `sample-03.txt`.
+- GitHub 최신 커밋: `8e359de feat: add manual E2E CLI`.
+- 다음은 실제 위시켓 의뢰서 1건을 파일로 저장해 같은 명령으로 실행.
+- `ready=false`이면 발송 금지. 특히 high risk는 추가 검토 필요.

@@ -152,3 +152,26 @@
   - 신규 WARN/CRITICAL 없음
   - typecheck 오류 0개
   - Node test 9개 통과
+
+---
+
+## 2026-05-23 | Manual E2E CLI | run:e2e + typecheck/test | PASS
+
+- 대상:
+  - `src/cli.ts`
+  - `tests/cli.test.mjs`
+  - `README.md`
+- 변경:
+  - 문의 텍스트 파일 1개를 전체 MVP 파이프라인에 넣는 CLI 추가
+  - JSON/Markdown 산출물을 `data/outputs/`에 저장
+  - 기본값은 승인/검증 미완료 상태이며, `--approve --validation-pass`를 줘야 수동 통과로 기록
+- 명령:
+  - `corepack pnpm typecheck`
+  - `corepack pnpm test`
+  - `corepack pnpm run:e2e -- data/samples/sample-03.txt --out data/outputs --approve --validation-pass`
+- 결과:
+  - typecheck 오류 0개
+  - Node test 10개 통과
+  - 샘플 E2E 산출물 생성 완료
+  - 결과 `ready=false`: 승인/검증은 통과했지만 risk level high라 추가 검토 필요
+  - GitHub push 완료: `8e359de feat: add manual E2E CLI`

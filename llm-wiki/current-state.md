@@ -83,3 +83,14 @@
 - Claude = 구현 / Codex = 검증 (역할 교차 금지)
 - 고객 메시지 전달 전 반드시 사람 승인
 - 위시켓 자동 크롤링 금지
+
+---
+
+## 2026-05-23 최신 상태 보정
+
+- GitHub 최신 기준: `8e359de feat: add manual E2E CLI`
+- Manual E2E CLI 추가: `src/cli.ts`
+- 실행 명령: `corepack pnpm run:e2e -- <문의파일> --out data/outputs`
+- 샘플 검증: `sample-03.txt`로 JSON/Markdown 산출물 생성 완료
+- 검증: `corepack pnpm typecheck` 통과, `corepack pnpm test` 통과 (10 tests)
+- 남은 일: 실제 위시켓 의뢰서 1건으로 같은 CLI 실행
